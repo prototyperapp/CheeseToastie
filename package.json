@@ -1,0 +1,27 @@
+{
+  "name": "cheese-toastie",
+  "version": "0.1.0",
+  "description": "NodeJS API Builder",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waffleandtoast/CheeseToastie.git"
+  },
+  "keywords": [
+    "api",
+    "nodejs",
+    "cheesetoastie"
+  ],
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "author": "Waffle and Toast",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waffleandtoast/CheeseToastie/issues"
+  },
+  "homepage": "https://github.com/waffleandtoast/CheeseToastie#readme"
+}
