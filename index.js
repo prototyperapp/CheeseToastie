@@ -1,8 +1,7 @@
 var express = require("express");
 var fs = require("fs");
 
-// Start CheeseToastie
-// Attempt to load API Json File
+var authenticatorMethod = null;
 var routeMap = {};
 
 // Loop through all of the directories under /api and add the route files to the route map
@@ -172,16 +171,46 @@ var handleMethod = function(methodDefinition, req, res) {
     return;
   }
 
-  routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, {user: null}, function(err, result) {
-    if (err) {
-      res.status(501).send(err);
-      return;
-    } else {
-      res.json(result);
+  getAuthedUserFromHeaders(req, function(authUser) {
+    if (methodDefinition.authRequired && !authUser) {
+      res.status(401).send({error: "You must be logged in to call this service"});
       return;
     }
+
+    var environment = {
+      authUser: authUser
+    };
+
+    routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result) {
+      if (err) {
+        res.status(501).send(err);
+        return;
+      } else {
+        res.json(result);
+        return;
+      }
+    });
   });
 }
+
+var getAuthedUserFromHeaders = function(req, callback) {
+  if (req.headers && req.headers["x-user-token"]) {
+    // We have a user token
+    if (authenticatorMethod) {
+      authenticatorMethod(req.headers["x-user-token"], function(authUser) {
+        return callback(authUser);
+      });
+    } else {
+      return callback(null);
+    }
+  } else {
+    return callback(null);
+  }
+};
+
+exports.setAuthenticatorMethod = function(authMethod) {
+  authenticatorMethod = authMethod;
+};
 
 exports.start = function(directory, app) {
   console.log("Starting CheeseToastie 🧀 🍞 ...");
