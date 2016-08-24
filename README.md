@@ -26,3 +26,26 @@ var server = app.listen(process.env.PORT || '8080', function () {
 });
 
 ```
+
+## Authenticating Requests
+You can mark routes in your JSON file as requiring authentication like this:
+```javascript
+...
+"authRequired": true,
+...
+```
+
+You must then provide an authenticator function to the CheeseToastie library that will run against authenticated requests and return either a user object or null (if the user is not logged in/their token is not valid).
+
+```javascript
+cheeseToastie.setAuthenticatorMethod(function(token, callback) {
+  // Silly example, normally you'd be decoding a JSON Web Token
+  if (token && token == "1234") {
+    return callback({name: "Daryl"});
+  }
+
+  return callback(null);
+});
+
+cheeseToastie.start(__dirname, app);
+```
