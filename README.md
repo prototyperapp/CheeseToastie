@@ -13,9 +13,13 @@ To use this library, you'll need to setup a JSON Swagger file that defines your 
 ## Quick Start
 ```javascript
 var express = require("express");
+var bodyParser = require('body-parser');
+
 var cheeseToastie = require("cheese-toastie");
 
 var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Start the CheeseToastie API
 cheeseToastie.start(__dirname, app);
