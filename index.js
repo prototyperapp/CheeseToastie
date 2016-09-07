@@ -184,6 +184,7 @@ var handleMethod = function(methodDefinition, req, res) {
     routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect) {
       if (redirect) {
         res.redirect(redirect);
+        return;
       } if (err) {
         res.status(500).send(err);
         return;
