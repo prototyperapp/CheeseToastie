@@ -4,6 +4,10 @@ var fs = require("fs");
 var authenticatorMethod = null;
 var routeMap = {};
 
+const DEFAULT_DOCS_PATH = "/documentation";
+const DEFAULT_DOCS_TITLE = "API Documentation";
+const EDITABLE_MODE_ARG = "editable"
+
 // Loop through all of the directories under /api and add the route files to the route map
 var addRouteFiles = function(basePath, directory) {
   fs.readdirSync(directory).forEach(function(file) {
@@ -140,6 +144,7 @@ var convertFullUrlToApiRoute = function(url) {
 };
 
 var handleMethod = function(methodDefinition, req, res) {
+  console.log(req.route.path);
   var completePath = convertFullUrlToApiRoute(req.route.path);
 
   if (completePath.charAt(completePath.length - 1) == "/") {
@@ -211,12 +216,106 @@ var getAuthedUserFromHeaders = function(req, callback) {
   }
 };
 
+var addDocumentation = function(app, directory, options) {
+  var docsPath = DEFAULT_DOCS_PATH;
+  var docsTitle = DEFAULT_DOCS_TITLE;
+
+  if (options && options.docs) {
+    if (options.docs.path) {
+      docsPath = options.docs.path;
+    }
+
+    if (options.docs.title) {
+      docsTitle = options.docs.title;
+    }
+  }
+
+  // Serve the bundle
+  app.get("/api-docs-bundle/js", function(req, res) {
+    res.sendFile(__dirname + "/docs/build/bundle.js");
+  });
+
+  // Serve the API Spec JSON File
+  app.get("/api-docs-bundle/json", function(req, res) {
+    res.sendFile(directory + "/api.json");
+  });
+
+  // Serve the CSS
+  app.get("/api-docs-bundle/css", function(req, res) {
+    res.sendFile(__dirname + "/docs/build/static_docs_content/style.css");
+  });
+
+  var scriptTags = '<script type="text/javascript" src="http://localhost:3001/docs/build/bundle.js"></script>';
+  //var scriptTags = '<script type="text/javascript" src="' + SITES[site].src + 'bundle.js"></script>';
+
+  var fontIncludes = '<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400" rel="stylesheet">';
+
+  var html = '<html><head><title>' + docsTitle + '</title>'
+    + '<link rel="stylesheet" type="text/css" href="/api-docs-bundle/css"/>'
+    + fontIncludes
+    + '</head>'
+    + '<body class="body"><div id="page"></div>'
+    + scriptTags
+    + '</body>'
+    + '</html>';
+
+  app.get(docsPath + "/*", function(req, res) {
+    res.send(html);
+  });
+
+  app.get(docsPath, function(req, res) {
+    res.send(html);
+  });
+};
+
 exports.setAuthenticatorMethod = function(authMethod) {
   authenticatorMethod = authMethod;
 };
 
-exports.start = function(directory, app) {
+saveJsonFile = function(directory, apiJson) {
+  fs.writeFile(directory + "/api.json", JSON.stringify(apiJson, null, "\t"), function(err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+};
+
+setupAdminMode = function(app, directory, apiJson) {
+  var adminMode = false;
+
+  process.argv.forEach(function(arg) {
+    if (arg == EDITABLE_MODE_ARG) {
+      adminMode = true;
+    }
+  });
+
+  app.get("/cheesetoastie/info", function(req, res) {
+    res.send({editable: adminMode});
+  });
+
+  if (adminMode) {
+    app.post("/cheesetoastie/info", function(req, res) {
+      if (req.body.field && req.body.value) {
+        apiJson.info[req.body.field] = req.body.value;
+        saveJsonFile(directory, apiJson);
+        reloadRoutes(app, directory, apiJson);
+        res.send({message: "Updated"});
+      } else {
+        res.status(501).send({error: "You must provide a field and value to update"});
+      }
+    });
+
+  }
+};
+
+reloadRoutes = function(app, directory, apiJson) {
+  addRouteFiles(directory + "/api", directory + "/api");
+  addRoutes(apiJson, app);
+};
+
+exports.start = function(directory, app, options) {
   console.log("Starting CheeseToastie 🧀 🍞 ...");
+
   try {
     fs.statSync(directory + "/api.json");
   } catch (e) {
@@ -232,6 +331,10 @@ exports.start = function(directory, app) {
     return;
   }
 
-  addRouteFiles(directory + "/api", directory + "/api");
-  addRoutes(apiJson, app);
+  setupAdminMode(app, directory, apiJson);
+  reloadRoutes(app, directory, apiJson);
+
+  if (!options || !options.docs || !options.docs.disable) {
+    addDocumentation(app, directory, options);
+  }
 };

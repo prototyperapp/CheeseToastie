@@ -1,0 +1,63 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Cheese Toastie Test",
+    "version" : "1.0.0",
+    "title" : "Cheese Toastie Test"
+  },
+  "host" : "localhost",
+  "basePath" : "/",
+  "documentationPath": "/documentation",
+  "schemes" : [ "https" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/hello" : {
+      "get" : {
+        "tags" : [ "Hello" ],
+        "authRequired": false,
+        "summary" : "Checks the server is working",
+        "authRequired": false,
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Hello" ],
+        "authRequired": false,
+        "summary" : "Checks the server is working",
+        "authRequired": false,
+        "parameters": [
+          {
+           "name" : "name",
+           "in" : "body",
+           "description" : "Name",
+           "required" : true,
+           "type" : "string"
+         }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    },
+    "/car/{id}/open" : {
+      "get" : {
+        "tags" : [ "Hello" ],
+        "authRequired": false,
+        "summary" : "Checks the server is working",
+        "authRequired": false,
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions" : { }
+}

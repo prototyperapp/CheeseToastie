@@ -1,0 +1,362 @@
+body {
+  font-family: "Open Sans";
+  font-size: 14px;
+  color: #111111;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  -webkit-user-select: none;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Montserrat";
+  margin: 0px;
+  font-weight: 100;
+}
+
+a {
+  text-decoration: none;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 100%;
+}
+
+.timing {
+  font-size: 10px;
+  color: RGBA(68, 75, 99, 1.00);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.error {
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffff;
+  background-color: RGBA(243, 47, 95, 1.00);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 2px;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.content-editable {
+  position: relative;
+}
+
+.content-editable-buttons {
+  font-size: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.6);
+  height: 40px;
+  width: 100%;
+}
+
+.content-editable-button-save {
+  background-color: RGBA(39, 161, 99, 1.00);
+  padding: 5px;
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: "Montserrat";
+  color: #ffffff;
+  width: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.white-link {
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease-in-out;
+}
+
+.white-link:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.loading-bar {
+  width: 100%;
+}
+
+.loading-bar-amount {
+  width: 30%;
+  background-color: #ffffff;
+}
+
+.side-bar {
+  width: 200px;
+  background-color: RGBA(68, 75, 99, 1.00);
+  color: #ffffff;
+  padding: 20px;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.main-content-top {
+  flex: 1;
+}
+
+.main-content-bottom {
+  font-size: 12px;
+}
+
+.right-side-bar {
+  background-color: #EEEEEE;
+  width: 280px;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #414046;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation-name: spinnerAnimation;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+}
+
+.spinner-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation-name: spinnerAnimation;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+}
+
+.spinner-small-inner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.spinner-inner {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #ffffff;
+}
+
+.side-bar-method {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 100;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.side-bar-method a {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.side-bar-method a {
+  opacity: 1;
+}
+
+.right-tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  background-color: #ECE7E7;
+}
+
+.right-tab {
+  padding: 10px;
+  font-family: "Montserrat";
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.right-tab-active {
+  opacity: 1;
+}
+
+.method-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  font-size: 10px;
+  margin-right: 5px;
+  width: 26px;
+}
+
+.method-big {
+  padding: 4px;
+  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 700;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.get-method {
+  background-color: #45B285;
+}
+
+.post-method {
+  background-color: #9b59b6;
+}
+
+.method-name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.section {
+  margin-top: 20px;
+}
+
+table {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ECE7E7;
+  border-collapse: collapse;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  text-align: left;
+}
+
+th {
+  background-color: #ECE7E7;
+  font-family: "Montserrat";
+  padding: 8px;
+
+}
+
+td {
+  padding: 8px;
+  border-width: 1px;
+  border-color: #ECE7E7;
+  border-collapse: collapse;
+}
+
+.centered-cell {
+  text-align: center;
+}
+
+.right-side-content {
+  padding: 20px;
+}
+
+.try-it-field-title-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.try-it-field-title {
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.try-it-textbox {
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 100;
+  border-style: none;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: RGBA(65, 64, 70, 0.2);
+  background-color: transparent;;
+  outline: none;
+  font-size: 15px;
+  margin-top: 5px;
+  padding-bottom: 4px;
+  width: 100%;
+}
+
+.type-box {
+  background-color: RGBA(119, 125, 147, 1.00);
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-family: "Montserrat";
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: RGBA(119, 125, 147, 0.8);
+  color: #ffffff;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: RGBA(119, 125, 147, 1);
+}
+
+.response-holder {
+  background-color: #ffffff;
+  padding: 10px;
+  font-size: 12px;
+  font-family: "Courier New"
+}
+
+@keyframes spinnerAnimation {
+    0% {transform: scale3d(0,0,0);}
+    100% {transform: rotate(1.5,1.5,0); opacity: 0}
+}
