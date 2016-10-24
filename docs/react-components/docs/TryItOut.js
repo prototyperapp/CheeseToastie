@@ -60,7 +60,6 @@ module.exports = React.createClass({
 
     if (params && params.length > 0) {
         params.forEach(function(param) {
-          console.log(param);
           if (param.in && param.in == "body") {
             paramsObj[param.name] = this.refs["field_" + param.name].value;
           }
@@ -110,7 +109,7 @@ module.exports = React.createClass({
         <div>
           {params.map(function(param) {
             return (
-              <div key={param.name}>
+              <div key={param.name} className="try-it-param">
                 <div className="try-it-field-title-holder">
                   {this.renderTypeBox("string")}
                   <div className="try-it-field-title">{param.name}</div>

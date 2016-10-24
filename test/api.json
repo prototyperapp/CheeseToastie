@@ -1,9 +1,9 @@
 {
 	"swagger": "2.0",
 	"info": {
-		"description": "Cheese Toastie is a neat little framework that lets you quickly build out and test APIs in a nice visual way",
+		"description": "Cheese Toastie is a neat little framework that lets you quickly build out and test APIs in a nice visual way. Here<b> </b>is some more content. HTML is supported too.",
 		"version": "1.0.0",
-		"title": "Cheese Toastie Test Docs"
+		"title": "Cheese Toastie API"
 	},
 	"host": "localhost",
 	"basePath": "/",
@@ -43,6 +43,13 @@
 						"description": "Name",
 						"required": true,
 						"type": "string"
+					},
+					{
+						"name": "age",
+						"in": "body",
+						"description": "Age",
+						"required": true,
+						"type": "number"
 					}
 				],
 				"responses": {

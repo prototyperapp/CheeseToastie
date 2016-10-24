@@ -10,9 +10,11 @@ var NotFound = require("./docs/NotFound");
 
 ReactDOM.render(
   (
+    <div className="fixed-page">
     <Router history={browserHistory}>
         <Route path="*" component={Home}/>
     </Router>
+    </div>
   ),
   document.getElementById("page")
 );

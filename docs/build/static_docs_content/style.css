@@ -8,6 +8,11 @@ body {
   -webkit-user-select: none;
   font-smooth: always;
   -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+html {
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5 {
@@ -18,6 +23,26 @@ h1, h2, h3, h4, h5 {
 
 a {
   text-decoration: none;
+}
+
+.editable-add {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  flex: 1;
+  z-index: 100;
+  background-color: #ffffff;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: RGBA(68, 75, 98, 1.00);
+  font-family: "Montserrat";
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .page {
@@ -66,8 +91,13 @@ a {
   width: 100%;
 }
 
+.try-it-param {
+  margin-bottom: 18px;
+}
+
 .content-editable-button-save {
-  background-color: RGBA(39, 161, 99, 1.00);
+  margin-top: 10px;
+  background-color: RGBA(39, 161, 99, 0.7);
   padding: 5px;
   border-radius: 2px;
   font-size: 14px;
@@ -76,6 +106,10 @@ a {
   width: 40px;
   text-align: center;
   cursor: pointer;
+}
+
+.content-editable-button-save:hover {
+  background-color: RGBA(39, 161, 99, 1);
 }
 
 .white-link {
@@ -97,10 +131,20 @@ a {
 }
 
 .side-bar {
+  position: relative;
   width: 200px;
   background-color: RGBA(68, 75, 99, 1.00);
   color: #ffffff;
+  overflow: auto;
   padding: 20px;
+}
+
+.fixed-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .main-content {
@@ -110,6 +154,7 @@ a {
   padding: 20px;
   padding-left: 30px;
   padding-right: 30px;
+  overflow: auto;
 }
 
 .main-content-top {
@@ -120,9 +165,22 @@ a {
   font-size: 12px;
 }
 
+.side-bar-category {
+  color: #ffffff;
+  font-family: "Montserrat";
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.side-bar-methods {
+  margin-left: 5px;
+}
+
 .right-side-bar {
   background-color: #EEEEEE;
   width: 280px;
+  overflow: auto;
 }
 
 .centered {

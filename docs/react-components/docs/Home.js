@@ -114,7 +114,10 @@ module.exports = React.createClass({
 
     return (
       <div className="layout">
-        <LeftSideBar api={this.state.api} documentationPath={this.state.documentationPath}/>
+        <LeftSideBar
+          api={this.state.api}
+          documentationPath={this.state.documentationPath}
+          editable={this.state.editable}/>
         <div className="main-content">
           {this.renderContent()}
           <div className="main-content-bottom">
@@ -127,6 +130,7 @@ module.exports = React.createClass({
           documentationPath={this.state.documentationPath}
           method={this.props.location.query.method}
           methodName={this.props.location.query.method_name}
+          editable={this.state.editable}
           />
       </div>
 

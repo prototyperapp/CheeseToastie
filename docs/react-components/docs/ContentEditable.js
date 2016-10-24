@@ -22,12 +22,16 @@ module.exports = React.createClass({
     }
   },
 
+  setHtml: function() {
+    return {__html: this.props.content};
+  },
+
   save: function() {
     this.setState({
       contentEditable: false
     });
 
-    var newValue = this.refs.editableField.innerText;
+    var newValue = this.refs.editableField.innerHTML;
 
     var updatedApi = update(this.props.api, {$apply: function(api) {
       api[this.props.path][this.props.fileName] = newValue;
@@ -63,7 +67,7 @@ module.exports = React.createClass({
 
     return (
       <div className={classes} onDoubleClick={this.onDoubleClick}>
-        <div contentEditable={this.state.contentEditable} ref="editableField">{this.props.content}</div>
+        <div contentEditable={this.state.contentEditable} ref="editableField" dangerouslySetInnerHTML={this.setHtml()}></div>
         {buttons}
       </div>
     )
