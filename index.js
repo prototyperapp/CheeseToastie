@@ -236,7 +236,15 @@ var addDocumentation = function(app, directory, options) {
 
   // Serve the API Spec JSON File
   app.get("/api-docs-bundle/json", function(req, res) {
-    res.sendFile(directory + "/api.json");
+    fs.readFile(directory + "/api.json", 'utf8', function (err, data) {
+      if (err) {
+        res.status(500).send("Could not load JSON file");
+        return;
+      };
+
+      var loadedJson = JSON.parse(data);
+      res.json(loadedJson);
+    });
   });
 
   // Serve the CSS
