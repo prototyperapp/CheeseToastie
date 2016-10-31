@@ -1,0 +1,82 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "Cheese Toastie is a neat little framework that lets you quickly build out and test APIs in a nice visual way. Here<b> </b>is some more content. HTML is supported too.",
+		"version": "1.0.0",
+		"title": "Cheese Toastie API"
+	},
+	"host": "localhost",
+	"basePath": "/",
+	"documentationPath": "/documentation",
+	"schemes": [
+		"https"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/hello": {
+			"get": {
+				"tags": [
+					"Hello"
+				],
+				"authRequired": false,
+				"summary": "Checks the server is working",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get",
+				"path": "/hello"
+			},
+			"post": {
+				"tags": [
+					"Hello"
+				],
+				"authRequired": false,
+				"summary": "Checks the server is working",
+				"parameters": [
+					{
+						"name": "name",
+						"in": "body",
+						"description": "Name",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "age",
+						"in": "body",
+						"description": "Age",
+						"required": true,
+						"type": "number"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "post",
+				"path": "/hello"
+			}
+		},
+		"/car/{id}/open": {
+			"get": {
+				"tags": [
+					"Hello"
+				],
+				"authRequired": false,
+				"summary": "Checks the server is working",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get",
+				"path": "/car/:id/open"
+			}
+		}
+	},
+	"definitions": {}
+}

@@ -141,19 +141,21 @@ module.exports = React.createClass({
           error: "Could not load documentation"
         });
       } else {
+        console.log(apiJson);
+
         if (window.location.href.toLowerCase().indexOf("localhost") >= 0) {
           // Check if admin-editable
           HttpServices.get("/cheesetoastie/info", function (req, res) {
             this.setState({
               loading: false,
-              api: JSON.parse(apiJson),
+              api: apiJson,
               editable: res.editable
             });
           }.bind(this));
         } else {
           this.setState({
             loading: false,
-            api: JSON.parse(apiJson)
+            api: apiJson
           });
         }
       }

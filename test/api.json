@@ -15,7 +15,7 @@
 		"application/json"
 	],
 	"paths": {
-		"/hello": {
+		"/api/hello": {
 			"get": {
 				"tags": [
 					"Hello"
@@ -28,53 +28,342 @@
 					}
 				},
 				"method": "get",
-				"path": "/hello"
-			},
-			"post": {
-				"tags": [
-					"Hello"
-				],
-				"authRequired": false,
-				"summary": "Checks the server is working",
-				"parameters": [
-					{
-						"name": "name",
-						"in": "body",
-						"description": "Name",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "age",
-						"in": "body",
-						"description": "Age",
-						"required": true,
-						"type": "number"
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Success"
-					}
-				},
-				"method": "post",
 				"path": "/hello"
 			}
 		},
-		"/car/{id}/open": {
+		"/api/amazon/search": {
 			"get": {
 				"tags": [
-					"Hello"
+					"Amazon"
 				],
 				"authRequired": false,
-				"summary": "Checks the server is working",
+				"summary": "Searches Amazon for Products",
+				"parameters": [
+					{
+						"name": "s",
+						"description": "String to search for",
+						"in": "query",
+						"required": true
+					},
+					{
+						"name": "region",
+						"description": "Region to search in (currently uk or us)",
+						"in": "query",
+						"required": false
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Success"
 					}
 				},
-				"method": "get",
-				"path": "/car/:id/open"
+				"method": "get"
+			}
+		},
+		"/api/amazon/lookup": {
+			"get": {
+				"tags": [
+					"Amazon"
+				],
+				"authRequired": false,
+				"summary": "Looks up a product on Amazon",
+				"parameters": [
+					{
+						"name": "asin",
+						"description": "ASIN ID",
+						"in": "query",
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get"
+			}
+		},
+		"/api/ready/check": {
+			"get": {
+				"tags": [
+					"Readiness"
+				],
+				"authRequired": true,
+				"summary": "Checks your readiness",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get"
+			}
+		},
+		"/api/products/all": {
+			"get": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "region",
+						"in": "query",
+						"required": false,
+						"description": "The region to search in (uk or us only at the moment)"
+					},
+					{
+						"name": "category",
+						"in": "query",
+						"required": false,
+						"description": "Category to show products for"
+					},
+					{
+						"name": "role",
+						"in": "query",
+						"required": false,
+						"description": "Role to show products for"
+					},
+					{
+						"name": "s",
+						"in": "query",
+						"required": false,
+						"description": "Search String"
+					}
+				],
+				"authRequired": false,
+				"summary": "Lists all Products",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get"
+			}
+		},
+		"/api/products/amazon": {
+			"post": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "title",
+						"in": "body",
+						"required": true,
+						"description": "Product title"
+					},
+					{
+						"name": "description",
+						"in": "body",
+						"required": false,
+						"description": "Product description"
+					},
+					{
+						"name": "role",
+						"in": "body",
+						"required": false,
+						"description": "Product role (e.g. bed)"
+					},
+					{
+						"name": "uk_price",
+						"in": "body",
+						"required": false,
+						"description": "UK Price"
+					},
+					{
+						"name": "us_price",
+						"in": "body",
+						"required": false,
+						"description": "US Price"
+					},
+					{
+						"name": "uk_url",
+						"in": "body",
+						"required": false,
+						"description": "UK URL"
+					},
+					{
+						"name": "us_url",
+						"in": "body",
+						"required": false,
+						"description": "US URL"
+					},
+					{
+						"name": "image_url",
+						"in": "body",
+						"required": true,
+						"description": "Image URL"
+					},
+					{
+						"name": "asin",
+						"in": "body",
+						"required": true,
+						"description": "ASIN"
+					},
+					{
+						"name": "main_category",
+						"in": "body",
+						"required": true,
+						"description": "Main Category"
+					}
+				],
+				"authRequired": true,
+				"summary": "Creates a new product",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/api/products/view/{id}": {
+			"get": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"required": true,
+						"description": "Product ID"
+					}
+				],
+				"authRequired": false,
+				"summary": "Creates a new product",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/api/products/like": {
+			"post": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"required": true,
+						"description": "Product ID"
+					}
+				],
+				"authRequired": false,
+				"summary": "Like a product",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/api/products/dislike": {
+			"post": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"required": true,
+						"description": "Product ID"
+					}
+				],
+				"authRequired": false,
+				"summary": "Dislike a product",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/api/products/status": {
+			"post": {
+				"tags": [
+					"Products"
+				],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "query",
+						"required": true,
+						"description": "Product ID"
+					},
+					{
+						"name": "bought",
+						"in": "body",
+						"required": false,
+						"description": "Has the product been bought or not"
+					}
+				],
+				"authRequired": false,
+				"summary": "Like a product",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/api/categories/all": {
+			"get": {
+				"tags": [
+					"Categories"
+				],
+				"authRequired": false,
+				"summary": "Lists all Categories",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get"
+			}
+		},
+		"/api/roles/all": {
+			"get": {
+				"tags": [
+					"Roles"
+				],
+				"authRequired": false,
+				"summary": "Lists all Roles",
+				"responses": {
+					"200": {
+						"description": "Success"
+					}
+				},
+				"method": "get"
+			}
+		},
+		"/api/login/facebook/oauth": {
+			"get": {
+				"tags": [
+					"Facebook Login"
+				],
+				"authRequired": false,
+				"summary": "Redirects to the OAuth Login Screen for Facebook"
+			}
+		},
+		"/api/login/facebook/callback": {
+			"get": {
+				"tags": [
+					"Facebook Callback"
+				],
+				"authRequired": false,
+				"summary": "Handles Facebook Login Callback"
+			}
+		},
+		"/api/user/me": {
+			"get": {
+				"tags": [
+					"User"
+				],
+				"authRequired": true,
+				"summary": "Gets the logged in user's details"
 			}
 		}
 	},

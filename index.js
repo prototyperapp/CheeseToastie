@@ -144,7 +144,6 @@ var convertFullUrlToApiRoute = function(url) {
 };
 
 var handleMethod = function(methodDefinition, req, res) {
-  console.log(req.route.path);
   var completePath = convertFullUrlToApiRoute(req.route.path);
 
   if (completePath.charAt(completePath.length - 1) == "/") {
@@ -245,8 +244,8 @@ var addDocumentation = function(app, directory, options) {
     res.sendFile(__dirname + "/docs/build/static_docs_content/style.css");
   });
 
-  //var scriptTags = '<script type="text/javascript" src="http://localhost:3001/docs/build/bundle.js"></script>';
-  var scriptTags = '<script type="text/javascript" src="/api-docs-bundle/json"></script>';
+  var scriptTags = '<script type="text/javascript" src="http://localhost:3001/docs/build/bundle.js"></script>';
+  //var scriptTags = '<script type="text/javascript" src="/api-docs-bundle/json"></script>';
 
   var fontIncludes = '<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400" rel="stylesheet">';
 

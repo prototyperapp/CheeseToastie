@@ -21,7 +21,7 @@ var config = {
     output: {
       path: path.join(__dirname, 'public'),
       filename: 'bundle.js',
-      publicPath: '/docs/build'
+      publicPath: '/docs/build/'
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
