@@ -1,7 +1,6 @@
 var request = require("superagent");
 
 exports.get = function(url, callback) {
-  console.log(url);
   request
     .get(url)
     .set('Accept', 'application/json')

@@ -18,8 +18,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
-    console.log("Hello!");
-    HttpServices.get("/api-docs-bundle/json", function(err, apiJson) {
+    HttpServices.get("/api-docs-bundle/api.json", function(err, apiJson) {
       console.log("Loaded API JSON");
       if (err || !apiJson) {
         this.setState({

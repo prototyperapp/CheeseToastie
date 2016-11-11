@@ -134,8 +134,7 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function () {
-    console.log("Hello!");
-    HttpServices.get("/api-docs-bundle/json", function (err, apiJson) {
+    HttpServices.get("/api-docs-bundle/api.json", function (err, apiJson) {
       console.log("Loaded API JSON");
       if (err || !apiJson) {
         this.setState({
@@ -800,7 +799,6 @@ ReactDOM.render(React.createElement(
 var request = require("superagent");
 
 exports.get = function (url, callback) {
-  console.log(url);
   request.get(url).set('Accept', 'application/json').end(function (err, res) {
     if (err) {
       if (res) {

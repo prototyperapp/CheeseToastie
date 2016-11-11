@@ -235,7 +235,7 @@ var addDocumentation = function(app, directory, options) {
   });
 
   // Serve the API Spec JSON File
-  app.get("/api-docs-bundle/json", function(req, res) {
+  app.get("/api-docs-bundle/api.json", function(req, res) {
     fs.readFile(directory + "/api.json", 'utf8', function (err, data) {
       if (err) {
         res.status(500).send("Could not load JSON file");
@@ -253,7 +253,7 @@ var addDocumentation = function(app, directory, options) {
   });
 
   //var scriptTags = '<script type="text/javascript" src="http://localhost:3001/docs/build/bundle.js"></script>';
-  var scriptTags = '<script type="text/javascript" src="/api-docs-bundle/json"></script>';
+  var scriptTags = '<script type="text/javascript" src="/api-docs-bundle/js"></script>';
 
   var fontIncludes = '<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400" rel="stylesheet">';
 
