@@ -18,15 +18,15 @@ module.exports = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log("Hello!");
     HttpServices.get("/api-docs-bundle/json", function(err, apiJson) {
+      console.log("Loaded API JSON");
       if (err || !apiJson) {
         this.setState({
           loading: false,
           error: "Could not load documentation"
         });
       } else {
-        console.log(apiJson);
-
         if (window.location.href.toLowerCase().indexOf("localhost") >= 0) {
           // Check if admin-editable
           HttpServices.get("/cheesetoastie/info", function(req, res) {
