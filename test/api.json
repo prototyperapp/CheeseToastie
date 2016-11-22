@@ -26,9 +26,7 @@
 					"200": {
 						"description": "Success"
 					}
-				},
-				"method": "get",
-				"path": "/hello"
+				}
 			},
 			"post": {
 				"tags": [
@@ -56,25 +54,21 @@
 					"200": {
 						"description": "Success"
 					}
-				},
-				"method": "post",
-				"path": "/hello"
+				}
 			}
 		},
-		"/car/{id}/open": {
-			"get": {
+		"/user/register": {
+			"post": {
 				"tags": [
-					"Hello"
+					"User"
 				],
 				"authRequired": false,
-				"summary": "Checks the server is working",
+				"summary": "Registers a new user",
 				"responses": {
 					"200": {
 						"description": "Success"
 					}
-				},
-				"method": "get",
-				"path": "/car/:id/open"
+				}
 			}
 		}
 	},
