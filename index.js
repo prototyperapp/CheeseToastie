@@ -114,7 +114,6 @@ var checkParameters = function(methodDefinition, req) {
 
 };
 
-
 var convertFullUrlToApiRoute = function(url) {
   var routeToReturn = "";
   var currentParam = null;
@@ -261,6 +260,7 @@ var addDocumentation = function(app, directory, options) {
     + '<link rel="stylesheet" type="text/css" href="/api-docs-bundle/css"/>'
     + fontIncludes
     + '</head>'
+    + '<script src="https://use.fontawesome.com/8b1e958111.js"></script>'
     + '<body class="body"><div id="page"></div>'
     + scriptTags
     + '</body>'

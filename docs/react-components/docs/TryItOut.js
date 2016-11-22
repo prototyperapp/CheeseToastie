@@ -2,6 +2,7 @@ var React = require("react");
 var RightTabs = require("./RightTabs");
 var Button = require("./Button");
 var HttpServices = require("../services/HttpServices");
+  var Highlight = require('react-highlight');
 
 module.exports = React.createClass({
 
@@ -11,14 +12,19 @@ module.exports = React.createClass({
     return {
       trying: false,
       response: null,
-      timing: null
+      timing: null,
+      maximizedResponse: false
     };
   },
 
   renderTypeBox: function(type) {
-    return (
-      <div className="type-box">{type.toUpperCase().substr(0,1)}</div>
-    );
+    if (!type) {
+      return null;
+    } else {
+      return (
+        <div className="type-box">{type.toUpperCase().substr(0,1)}</div>
+      );
+    }
   },
 
   componentWillReceiveProps: function() {
@@ -76,23 +82,66 @@ module.exports = React.createClass({
     }
   },
 
+  maximizeResponse: function() {
+    this.setState({
+      maximizedResponse: !this.state.maximizedResponse
+    });
+  },
+
+  wrapStringifiedJson: function(json) {
+    if (this.state.maximizedResponse) {
+      return (
+        <Highlight>
+          {JSON.stringify(json)}
+        </Highlight>
+      )
+    } else {
+      return JSON.stringify(json, null, "\t");
+    }
+  },
+
+  renderTiming: function() {
+    if (this.state.maximizedResponse) {
+      return null;
+    } else {
+      return (
+        <div className="timing">Took {this.state.timing}ms</div>
+      );
+    }
+  },
+
   renderResponse: function() {
+    var holderClasses = "";
+    var iconClasses = "fa fa-window-maximize";
+
+    if (this.state.maximizedResponse) {
+      holderClasses = "response-maximized";
+      iconClasses = "fa fa-window-close";
+    }
+
     if (this.state.response) {
       return (
-        <div>
+        <div className={holderClasses}>
+          <div className="ok-response">
+            <div>Response</div>
+            <i className={iconClasses} onClick={this.maximizeResponse}></i>
+          </div>
           <div className="response-holder">
-            {JSON.stringify(this.state.response, null, "\t")}
+            {this.wrapStringifiedJson(this.state.response)}
           </div>
 
-          <div className="timing">Took {this.state.timing}ms</div>
+          {this.renderTiming()}
         </div>
       )
     } else if (this.state.error) {
       return (
-        <div>
-          <div className="error">Error</div>
+        <div className={holderClasses}>
+          <div className="error">
+            <div>Error</div>
+            <i className={iconClasses} onClick={this.maximizeResponse}></i>
+          </div>
           <div className="response-holder">
-            {JSON.stringify(this.state.error, null, "\t")}
+            {this.wrapStringifiedJson(this.state.error)}
           </div>
         </div>
       );
@@ -111,7 +160,7 @@ module.exports = React.createClass({
             return (
               <div key={param.name} className="try-it-param">
                 <div className="try-it-field-title-holder">
-                  {this.renderTypeBox("string")}
+                  {this.renderTypeBox(param.type)}
                   <div className="try-it-field-title">{param.name}</div>
                 </div>
                 <input ref={"field_" + param.name} type="text" className="try-it-textbox"/>
@@ -136,7 +185,4 @@ module.exports = React.createClass({
       </div>
     )
   }
-
-
-
 });

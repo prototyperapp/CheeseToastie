@@ -15,7 +15,6 @@ module.exports = React.createClass({
   },
 
   renderParameters: function() {
-    console.log(this.props.api.paths[this.props.methodName][this.props.method]);
     var parameters = this.props.api.paths[this.props.methodName][this.props.method].parameters;
 
     if (parameters && parameters.length > 0) {

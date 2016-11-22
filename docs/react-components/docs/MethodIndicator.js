@@ -13,7 +13,7 @@ module.exports = React.createClass({
     var methodClasses = size + " " + this.props.method + "-method";
 
     return (
-      <div className={methodClasses}>{this.props.method.toUpperCase()}</div>
+      <div className={methodClasses}>{this.props.method.toUpperCase().substr(0,1)}</div>
     );
 
   }

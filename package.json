@@ -1,6 +1,6 @@
 {
   "name": "cheese-toastie",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "NodeJS API Builder",
   "main": "index.js",
   "scripts": {
@@ -38,7 +38,8 @@
     "babelify": "*",
     "react-addons-update": "^0.14.6",
     "body-parser": "*",
-    "superagent": "*"
+    "superagent": "*",
+    "react-highlight": "*"
   },
   "author": "Waffle and Toast",
   "license": "ISC",
