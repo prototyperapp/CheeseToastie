@@ -708,7 +708,7 @@ module.exports = React.createClass({
       return React.createElement(
         Highlight,
         null,
-        JSON.stringify(json)
+        JSON.stringify(json, null, 2)
       );
     } else {
       return JSON.stringify(json, null, "\t");

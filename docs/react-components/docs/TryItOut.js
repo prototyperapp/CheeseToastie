@@ -92,7 +92,7 @@ module.exports = React.createClass({
     if (this.state.maximizedResponse) {
       return (
         <Highlight>
-          {JSON.stringify(json)}
+          {JSON.stringify(json, null, 2)}
         </Highlight>
       )
     } else {
