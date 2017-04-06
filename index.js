@@ -187,7 +187,7 @@ var handleMethod = function(methodDefinition, req, res) {
     routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect, options) {
       if (options) {
         if (options.contentType) {
-          res.setHeader(options.contentType);
+          res.setHeader("Content-Type", options.contentType);
           res.send(result);
           return;
         }
