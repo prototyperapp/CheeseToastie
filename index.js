@@ -184,7 +184,15 @@ var handleMethod = function(methodDefinition, req, res) {
       authUser: authUser
     };
 
-    routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect) {
+    routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect, options) {
+      if (options) {
+        if (options.contentType) {
+          res.setHeader(options.contentType);
+          res.send(result);
+          return;
+        }
+      }
+      
       if (redirect) {
         res.redirect(redirect);
         return;
