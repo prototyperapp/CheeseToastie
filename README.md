@@ -53,3 +53,14 @@ cheeseToastie.setAuthenticatorMethod(function(token, callback) {
 
 cheeseToastie.start(__dirname, app);
 ```
+
+## Callback options
+When you return a callback to Cheese Toastie it should be of the following format:
+```javascript
+return callback(err, data, redirect, options)
+```
+
+* err - An error, if present
+* data - The data response, by default this should be in JSON
+* redirect - An optional redirect URL
+* options - An optional object that contains
