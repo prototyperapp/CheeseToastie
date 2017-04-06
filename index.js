@@ -188,6 +188,11 @@ var handleMethod = function(methodDefinition, req, res) {
       if (options) {
         if (options.contentType) {
           res.setHeader("Content-Type", options.contentType);
+
+          if (options.attachmentFilename) {
+            res.setHeader("Content-disposition", "attachment; filename=" + options.attachmentFilename);
+          }
+          
           res.send(result);
           return;
         }
