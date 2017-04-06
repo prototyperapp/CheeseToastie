@@ -7,6 +7,7 @@ var routeMap = {};
 const DEFAULT_DOCS_PATH = "/documentation";
 const DEFAULT_DOCS_TITLE = "API Documentation";
 const EDITABLE_MODE_ARG = "editable"
+const DEFAULT_USER_TOKEN = "x-user-token";
 
 // Loop through all of the directories under /api and add the route files to the route map
 var addRouteFiles = function(basePath, directory) {
@@ -213,10 +214,18 @@ var handleMethod = function(methodDefinition, req, res) {
 }
 
 var getAuthedUserFromHeaders = function(req, callback) {
-  if (req.headers && req.headers["x-user-token"]) {
+  var userToken = null;
+
+  if (req.headers && req.headers[DEFAULT_USER_TOKEN]) {
+    userToken = req.headers[DEFAULT_USER_TOKEN];
+  } else if (req.query && req.query[DEFAULT_USER_TOKEN]) {
+    userToken = req.query[DEFAULT_USER_TOKEN];
+  }
+
+  if (userToken) {
     // We have a user token
     if (authenticatorMethod) {
-      authenticatorMethod(req.headers["x-user-token"], function(authUser) {
+      authenticatorMethod(userToken, function(authUser) {
         return callback(authUser);
       });
     } else {
