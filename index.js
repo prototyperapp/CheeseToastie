@@ -143,6 +143,16 @@ var convertFullUrlToApiRoute = function(url) {
   return routeToReturn;
 };
 
+var logCall = function(methodDefinition, req, authUser, checkedParams, callback) {
+  if (logMethod) {
+    logMethod(methodDefinition, req, authUser, checkedParams, () => {
+      return callback();
+    });
+  } else {
+    return callback();
+  }
+};
+
 var handleMethod = function(methodDefinition, req, res) {
   var completePath = convertFullUrlToApiRoute(req.route.path);
 
@@ -185,31 +195,35 @@ var handleMethod = function(methodDefinition, req, res) {
       authUser: authUser
     };
 
-    routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect, options) {
-      if (options) {
-        if (options.contentType) {
-          res.setHeader("Content-Type", options.contentType);
-
-          if (options.attachmentFilename) {
-            res.setHeader("Content-disposition", "attachment; filename=" + options.attachmentFilename);
+    logCall(methodDefinition, req, authUser, checkedParams, () => {
+      routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect, options) {
+        if (options) {
+          if (options.contentType) {
+            res.setHeader("Content-Type", options.contentType);
+  
+            if (options.attachmentFilename) {
+              res.setHeader("Content-disposition", "attachment; filename=" + options.attachmentFilename);
+            }
+            
+            res.send(result);
+            return;
           }
-          
-          res.send(result);
+        }
+        
+        if (redirect) {
+          res.redirect(redirect);
+          return;
+        } if (err) {
+          res.status(500).send(err);
+          return;
+        } else {
+          res.json(result);
           return;
         }
-      }
-      
-      if (redirect) {
-        res.redirect(redirect);
-        return;
-      } if (err) {
-        res.status(500).send(err);
-        return;
-      } else {
-        res.json(result);
-        return;
-      }
+      });
     });
+
+    
   });
 }
 
@@ -300,6 +314,10 @@ var addDocumentation = function(app, directory, options) {
 exports.setAuthenticatorMethod = function(authMethod) {
   authenticatorMethod = authMethod;
 };
+
+exports.setLogMethod = function(loggingMethod) {
+  logMethod = loggingMethod;
+}
 
 saveJsonFile = function(directory, apiJson) {
   fs.writeFile(directory + "/api.json", JSON.stringify(apiJson, null, "\t"), function(err) {
