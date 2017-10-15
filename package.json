@@ -1,6 +1,6 @@
 {
   "name": "cheese-toastie",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "NodeJS API Builder",
   "main": "index.js",
   "scripts": {
