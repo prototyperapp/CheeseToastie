@@ -2,6 +2,7 @@ var express = require("express");
 var fs = require("fs");
 
 var authenticatorMethod = null;
+var logMethod = null;
 var routeMap = {};
 
 const DEFAULT_DOCS_PATH = "/documentation";
