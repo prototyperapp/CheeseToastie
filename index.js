@@ -146,7 +146,7 @@ var convertFullUrlToApiRoute = function(url) {
 
 var logCall = function(methodDefinition, req, path, method, authUser, checkedParams, callback) {
   if (logMethod) {
-    logMethod(methodDefinition, req, authUser, checkedParams, () => {
+    logMethod(methodDefinition, req, path, method, authUser, checkedParams, () => {
       return callback();
     });
   } else {
