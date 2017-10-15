@@ -144,7 +144,7 @@ var convertFullUrlToApiRoute = function(url) {
   return routeToReturn;
 };
 
-var logCall = function(methodDefinition, req, authUser, checkedParams, callback) {
+var logCall = function(methodDefinition, req, path, method, authUser, checkedParams, callback) {
   if (logMethod) {
     logMethod(methodDefinition, req, authUser, checkedParams, () => {
       return callback();
@@ -196,7 +196,7 @@ var handleMethod = function(methodDefinition, req, res) {
       authUser: authUser
     };
 
-    logCall(methodDefinition, req, authUser, checkedParams, () => {
+    logCall(methodDefinition, req, path, method, authUser, checkedParams, () => {
       routeMap[path][method][req.method.toLowerCase()](req, checkedParams.parameters, environment, function(err, result, redirect, options) {
         if (options) {
           if (options.contentType) {
