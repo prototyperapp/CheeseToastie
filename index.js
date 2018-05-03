@@ -320,6 +320,8 @@ exports.setLogMethod = function(loggingMethod) {
   logMethod = loggingMethod;
 }
 
+exports.handleMethod = handleMethod;
+
 saveJsonFile = function(directory, apiJson) {
   fs.writeFile(directory + "/api.json", JSON.stringify(apiJson, null, "\t"), function(err) {
     if (err) {
